@@ -5,8 +5,11 @@ const taskInput = document.querySelector('#taskInput');
 const tasksList = document.querySelector('#tasksList');
 const emptyList = document.querySelector('#emptyList');
 
+//Добавление задачи
 form.addEventListener('submit', addTask);
 
+// Удаление задачи 
+tasksList.addEventListener('click', deleteTask)
 
 function addTask(event) {
     // отмена обновления страницы и отправку формы
@@ -14,7 +17,6 @@ function addTask(event) {
 
     // достаем текст задачи из поля ввода
     const taskText = taskInput.value;
-    console.log(taskText);
 
     // добавляем разметку новой задачи
     const taskHTML = `<li class="list-group-item d-flex justify-content-between task-item">
@@ -39,5 +41,18 @@ function addTask(event) {
     //Проверка. Если в списке задач более 1-го элемента, скрываем блок
     if (tasksList.children.length > 1) {
         emptyList.classList.add('none');
+    }
+}
+
+function deleteTask(event) {
+    // проверяем клик по кнопке "удалить задачу"
+    if (event.target.dataset.action === 'delete') {
+        const padrentNode = event.target.closest('.list-group-item');
+        padrentNode.remove();
+    }
+
+    //Проверка. Если в списке задач 1 элемент, показываем блок
+    if (tasksList.children.length === 1) {
+        emptyList.classList.remove('none');
     }
 }
