@@ -3,9 +3,14 @@
 const form = document.querySelector('#form');
 const taskInput = document.querySelector('#taskInput');
 const tasksList = document.querySelector('#tasksList');
+const emptyList = document.querySelector('#emptyList');
 
-form.addEventListener('submit', (event) => {
-    event.preventDefault(); // отмена обновления страницы и отправку формы
+form.addEventListener('submit', addTask);
+
+
+function addTask(event) {
+    // отмена обновления страницы и отправку формы
+    event.preventDefault();
 
     // достаем текст задачи из поля ввода
     const taskText = taskInput.value;
@@ -26,4 +31,13 @@ form.addEventListener('submit', (event) => {
 
     // Добавляем разметку на страницу
     tasksList.insertAdjacentHTML('beforeend', taskHTML);
-});
+
+    //Очищаем поле ввода и возращаем фокус на инпут
+    taskInput.value = '';
+    taskInput.focus();
+
+    //Проверка. Если в списке задач более 1-го элемента, скрываем блок
+    if (tasksList.children.length > 1) {
+        emptyList.classList.add('none');
+    }
+}
