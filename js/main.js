@@ -5,14 +5,10 @@ const taskInput = document.querySelector('#taskInput');
 const tasksList = document.querySelector('#tasksList');
 const emptyList = document.querySelector('#emptyList');
 
-//Добавление задачи
-form.addEventListener('submit', addTask);
 
-// Удаление задачи 
-tasksList.addEventListener('click', deleteTask);
-
-// Отмечать выполненные задачи
-tasksList.addEventListener('click', doneTask);
+form.addEventListener('submit', addTask); //Добавление задачи
+tasksList.addEventListener('click', deleteTask); // Удаление задачи 
+tasksList.addEventListener('click', doneTask); // Отмечать выполненные задачи
 
 function addTask(event) {
     // отмена обновления страницы и отправку формы
@@ -48,12 +44,11 @@ function addTask(event) {
 }
 
 function deleteTask(event) {
+    // проверяем если был не по кнопке "удалить задачу"
+    if (event.target.dataset.action !== 'delete') return;
     // проверяем клик по кнопке "удалить задачу"
-    if (event.target.dataset.action === 'delete') {
-        const padrentNode = event.target.closest('.list-group-item');
-        padrentNode.remove();
-    }
-
+    const padrentNode = event.target.closest('.list-group-item');
+    padrentNode.remove();
     //Проверка. Если в списке задач 1 элемент, показываем блок
     if (tasksList.children.length === 1) {
         emptyList.classList.remove('none');
@@ -61,10 +56,10 @@ function deleteTask(event) {
 }
 
 function doneTask(event) {
+    // Проверяем клик не по кнопке "задача выполнена"
+    if (event.target.dataset.action !== 'done') return;
     // Проверяем клик по кнопке "задача выполнена"
-    if (event.target.dataset.action === 'done') {
-        const padrentNode = event.target.closest('.list-group-item');
-        const taskTitle = padrentNode.querySelector('.task-title');
-        taskTitle.classList.toggle('task-title--done');
-    }
+    const padrentNode = event.target.closest('.list-group-item');
+    const taskTitle = padrentNode.querySelector('.task-title');
+    taskTitle.classList.toggle('task-title--done');
 }
