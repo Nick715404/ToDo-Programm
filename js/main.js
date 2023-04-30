@@ -9,7 +9,10 @@ const emptyList = document.querySelector('#emptyList');
 form.addEventListener('submit', addTask);
 
 // Удаление задачи 
-tasksList.addEventListener('click', deleteTask)
+tasksList.addEventListener('click', deleteTask);
+
+// Отмечать выполненные задачи
+tasksList.addEventListener('click', doneTask);
 
 function addTask(event) {
     // отмена обновления страницы и отправку формы
@@ -54,5 +57,14 @@ function deleteTask(event) {
     //Проверка. Если в списке задач 1 элемент, показываем блок
     if (tasksList.children.length === 1) {
         emptyList.classList.remove('none');
+    }
+}
+
+function doneTask(event) {
+    // Проверяем клик по кнопке "задача выполнена"
+    if (event.target.dataset.action === 'done') {
+        const padrentNode = event.target.closest('.list-group-item');
+        const taskTitle = padrentNode.querySelector('.task-title');
+        taskTitle.classList.toggle('task-title--done');
     }
 }
