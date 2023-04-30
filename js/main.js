@@ -5,21 +5,33 @@ const taskInput = document.querySelector('#taskInput');
 const tasksList = document.querySelector('#tasksList');
 const emptyList = document.querySelector('#emptyList');
 
+let tasks = [];
 
 form.addEventListener('submit', addTask); //Добавление задачи
 tasksList.addEventListener('click', deleteTask); // Удаление задачи 
 tasksList.addEventListener('click', doneTask); // Отмечать выполненные задачи
 
-function addTask(event) {
-    // отмена обновления страницы и отправку формы
-    event.preventDefault();
 
-    // достаем текст задачи из поля ввода
-    const taskText = taskInput.value;
+function addTask(event) {
+    event.preventDefault(); // отмена обновления страницы и отправку формы
+
+    const taskText = taskInput.value; // достаем текст задачи из поля ввода
+
+    const newTask = {   // Задача в виде объекта
+        id: Date.now(), // айди в милисекундах
+        text: taskText,
+        done: false
+    };
+
+    tasks.push(newTask); // Добавляем задачу в массив с задачами
+    console.log(tasks);
+
+    // формируем css class 
+    const cssClass = newTask.done ? 'task-title task-title--done' : 'task-title'
 
     // добавляем разметку новой задачи
-    const taskHTML = `<li class="list-group-item d-flex justify-content-between task-item">
-    <span class="task-title">${taskText}</span>
+    const taskHTML = `<li id="${newTask.id}" class="list-group-item d-flex justify-content-between task-item">
+    <span class="${cssClass}">${newTask.text}</span>
     <div class="task-item__buttons">
         <button type="button" data-action="done" class="btn-action">
             <img src="./img/tick.svg" alt="Done" width="18" height="18">
@@ -30,15 +42,12 @@ function addTask(event) {
     </div>
     </li>`;
 
-    // Добавляем разметку на страницу
-    tasksList.insertAdjacentHTML('beforeend', taskHTML);
+    tasksList.insertAdjacentHTML('beforeend', taskHTML); // Добавляем разметку на страницу
 
-    //Очищаем поле ввода и возращаем фокус на инпут
-    taskInput.value = '';
+    taskInput.value = ''; //Очищаем поле ввода и возращаем фокус на инпут
     taskInput.focus();
 
-    //Проверка. Если в списке задач более 1-го элемента, скрываем блок
-    if (tasksList.children.length > 1) {
+    if (tasksList.children.length > 1) {     //Проверка. Если в списке задач более 1-го элемента, скрываем блок
         emptyList.classList.add('none');
     }
 }
