@@ -1,10 +1,11 @@
 html,
 body {
   min-height: 100vh;
+  color: #fff;
 }
 
 body {
-  background-color: #E4E5E7;
+  background-color: #3a5996;
   padding-top: 30px;
   display: flex;
   flex-direction: column;
@@ -26,6 +27,7 @@ body {
 .task-title {
   font-weight: 400;
   padding-top: 5px;
+  color: #000;
 }
 
 .gray {
@@ -34,7 +36,7 @@ body {
 
 .task-title--done {
   text-decoration: line-through;
-  color: #CDCDCD;
+  color: #aaaaaa;
 }
 
 .task-item__buttons {
@@ -60,6 +62,7 @@ body {
   font-size: 28px;
   margin-bottom: 15px;
   font-weight: 300;
+  color: #000;
 }
 
 .empty-list__icon {
@@ -98,14 +101,10 @@ body {
   float: right;
 }
 
-.copyright {
-  margin-top: 40px;
-  font-size: 14px;
-  color: gray;
-  text-align: center;
-  margin-bottom: 30px;
-  /* position: absolute; */
-  /* bottom: 30px; */
-  /* left: 0; */
-  /* right: 0; */
+.card-header {
+  color: #000;
+}
+
+.btn {
+  background-color: #424242;
 }
